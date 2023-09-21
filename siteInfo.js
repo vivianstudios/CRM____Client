@@ -3,8 +3,13 @@
   
 // }
 
+// const siteInfo = {
+//     api: "https://crm-9w23.onrender.com/api"
+  
+// }
+
 const siteInfo = {
-    api: "https://crm-9w23.onrender.com/api"
+    api: "https://crm-server-yr5g.onrender.com/api"
   
 }
 
