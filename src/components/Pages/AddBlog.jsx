@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import siteInfo from "../../../siteInfo";
 import Layout from "../Layout/Layout";
-
+import HTMLEditor from "react-jodit-editor";
 function AddBlog() {
   const [image, setImage] = useState(null);
   const [blog, setBlog] = useState({});
@@ -11,7 +11,10 @@ function AddBlog() {
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
-
+  // 
+  let [text, setText] = useState("");
+  let [files, setFiles] = useState([]);
+  // 
   const getData = () => {
     axios
       .get("https://crm-server-yr5g.onrender.com/api/blogs")
@@ -34,7 +37,8 @@ function AddBlog() {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", e.target.title.value);
-    formData.append("blog", e.target.blog.value);
+    // formData.append("blog", e.target.blog.value);
+    formData.append("blog",text )
   
     try {
       const res = await axios.post("https://crm-server-yr5g.onrender.com/api/blogs", formData, {
@@ -63,7 +67,7 @@ function AddBlog() {
     });
     console.log(id)
   }
-
+  
   return (
    <Layout>
      <main>
@@ -96,7 +100,7 @@ function AddBlog() {
               }}
               name="title"
             />
-            <textarea
+            {/* <textarea
               type="text"
               style={{
                 margin: "20px 0",
@@ -107,7 +111,9 @@ function AddBlog() {
               }}
               placeholder="Blog"
               name="blog"
-            />
+            /> */}
+
+       <HTMLEditor initialValue="Test" onChange={setText} uploadFiles={setFiles} files={files} />
             <button
               style={{
                 margin: "20px 0",
@@ -133,18 +139,17 @@ function AddBlog() {
             fontSize: "32px",
           }}
         >
-          <h1>{blog.title}</h1>
+          <h1>{blog?.title}</h1>
           <img src={blog.image} alt="new image" />
-          <p>{blog.blog}</p>
-          
+          {/* <p>{blog?.blog}</p> */}
+          <div dangerouslySetInnerHTML={{ __html: blog.blog }} />
         </div>
         {/* ================================================= */}
       </div>
-
       <section className= " flex justify-center bg-slate-200">
       {blogs.map(blog=>{
       return <div
-      key={blog.id}
+      key={blog?.id}
         style={{
           width: "400px",
           margin: "30px",
@@ -155,11 +160,11 @@ function AddBlog() {
         }}
       >
        <div className="flex justify-between">
-       <h1>{blog.title}</h1> 
+       <h1>{blog?.title}</h1> 
         <button onClick={()=>  handleDlt(blog.id)} style={{background:'#000', marginLeft: "20px", color: '#ddd', padding: "5px 10px", cursor: 'pointer'}}>Delete  </button>
        </div>
         <img style={{ margin: "10px 0"}} src={blog.image} alt="new image" />
-        <p>{blog.blog}</p>
+        
       </div>
       })}
       </section>

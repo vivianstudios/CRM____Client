@@ -13,6 +13,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Button } from "@mui/material";
 import socketIO from "socket.io-client";
+import HTMLEditor from "react-jodit-editor";
+import ReactDOM from "react-dom";
 
 const FollowUpModal = ({ id, setFollowUp }) => {
   const socket = socketIO.connect("http://localhost:4000");
@@ -249,6 +251,7 @@ const FollowUpModal = ({ id, setFollowUp }) => {
     }
   };
 
+  
   return (
     <div className="">
       <input type="checkbox" id="folloUP-modal" className="modal-toggle" />
@@ -399,6 +402,7 @@ const FollowUpModal = ({ id, setFollowUp }) => {
       </div>
     </div>
   );
+  
 };
 
 export default FollowUpModal;
