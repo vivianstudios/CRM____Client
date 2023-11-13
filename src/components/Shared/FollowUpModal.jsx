@@ -15,7 +15,7 @@ import { Button } from "@mui/material";
 import socketIO from "socket.io-client";
 
 const FollowUpModal = ({ id, setFollowUp }) => {
-  const socket = socketIO.connect("http://localhost:4000");
+  const socket = socketIO.connect(siteInfo.socket);
   const { showLeads, leadsError, pending } = useSelector(
     (state) => state.leads
   );
@@ -100,15 +100,14 @@ const FollowUpModal = ({ id, setFollowUp }) => {
     socket.emit("message", {
       id: id,
       name: currentUser.name,
-      user_id: !follow ? currentUser.id: null,
+      user_id: !follow ? currentUser.id : null,
     });
     socket.on("lead", async (data) => {
       setLead(data);
-      if(data.followerID){
-        setFollow(true)
-      }
-      else{
-        setFollow(false)
+      if (data.followerID) {
+        setFollow(true);
+      } else {
+        setFollow(false);
       }
     });
   };
@@ -125,7 +124,6 @@ const FollowUpModal = ({ id, setFollowUp }) => {
           toast.error("Something Wrong, Try Again");
         });
     } else {
-
       await axios
         .patch(`${siteInfo.api}/leads/setFollower/${id}`, currentUser)
         .then((res) => {
