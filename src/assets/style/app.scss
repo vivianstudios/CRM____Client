@@ -1,0 +1,47 @@
+
+@import './table.scss';
+@import './theme.scss';
+@import './login.scss';
+
+*{
+    font-family: sans-serif;
+}
+
+
+.app{
+    min-height: 100vh;
+}
+
+
+.dataTableHeader {
+    background-color: #6366F1;
+    color: #fff;
+    font-weight: bold;
+  }
+
+
+ul#activeClass{
+    li{
+        a.active{
+            background-color: #6366F1;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}
+
+
+.dashboard-table{
+    td{
+        text-align: center;
+    }
+}
+
+
+.table-content{
+
+}
+
+.table-content::-webkit-scrollbar-track {
+    background-color: #e20808; /* Change the color as desired */
+}
