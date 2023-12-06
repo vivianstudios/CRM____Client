@@ -19,6 +19,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useSelector } from "react-redux";
 
 const PathList = ({ open }) => {
@@ -41,6 +42,13 @@ const PathList = ({ open }) => {
       user: false,
       admin: true,
     },
+   {
+    icon: <EditNoteIcon />,
+    text: 'Blogs',
+    path: '/blog',
+    user: false , 
+    admin:true
+   },
     {
       icon: <BallotIcon />,
       text: "All Leads",
