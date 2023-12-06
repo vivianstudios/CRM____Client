@@ -11,10 +11,9 @@ function App() {
   const state = useSelector((state) => state.app);
   const [lastActivity, setLastActivity] = useState(Date.now());
   const dispatch = useDispatch();
-  const {currentUser} = useSelector(state=> state.users)
+  const { currentUser } = useSelector((state) => state.users);
 
-  const LOGOUT_TIME = 60 * 60 * 1000;
-
+  const LOGOUT_TIME = 2 * 60 * 1000;
   const handleLogOut = () => {
     dispatch(setCurrentUser(null));
     localStorage.removeItem("crmUserId");
@@ -24,8 +23,9 @@ function App() {
   const checkLogout = () => {
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastActivity;
+    // console.log(elapsedTime);
     if (elapsedTime >= LOGOUT_TIME) {
-      handleLogOut();
+      // handleLogOut();
     }
   };
 
@@ -39,7 +39,7 @@ function App() {
     resetTimer();
   }, []);
 
-  setInterval(checkLogout, 60000);
+  setInterval(checkLogout, 1000);
 
   return (
     <div className={`w-full app ${state.theme == "DARK" ? "dark" : "light"} `}>
