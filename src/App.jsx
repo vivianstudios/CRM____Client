@@ -11,7 +11,7 @@ function App() {
   const state = useSelector((state) => state.app);
   const [lastActivity, setLastActivity] = useState(Date.now());
   const dispatch = useDispatch();
-  const {currentUser} = useSelector(state=> state.users)
+  const { currentUser } = useSelector((state) => state.users);
 
   const LOGOUT_TIME = 60 * 60 * 1000;
 
@@ -39,7 +39,7 @@ function App() {
     resetTimer();
   }, []);
 
-  setInterval(checkLogout, 60000);
+  // setInterval(checkLogout, 60000);
 
   return (
     <div className={`w-full app ${state.theme == "DARK" ? "dark" : "light"} `}>
