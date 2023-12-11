@@ -13,9 +13,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Button } from "@mui/material";
 import socketIO from "socket.io-client";
+import HTMLEditor from "react-jodit-editor";
+import ReactDOM from "react-dom";
 
 const FollowUpModal = ({ id, setFollowUp }) => {
-  const socket = socketIO.connect(siteInfo.socket);
+  // const socket = socketIO.connect(siteInfo.socket);
   const { showLeads, leadsError, pending } = useSelector(
     (state) => state.leads
   );
@@ -96,21 +98,21 @@ const FollowUpModal = ({ id, setFollowUp }) => {
     }
   };
 
-  const handleFollowTwo = () => {
-    socket.emit("message", {
-      id: id,
-      name: currentUser.name,
-      user_id: !follow ? currentUser.id : null,
-    });
-    socket.on("lead", async (data) => {
-      setLead(data);
-      if (data.followerID) {
-        setFollow(true);
-      } else {
-        setFollow(false);
-      }
-    });
-  };
+  // const handleFollowTwo = () => {
+  //   socket.emit("message", {
+  //     id: id,
+  //     name: currentUser.name,
+  //     user_id: !follow ? currentUser.id : null,
+  //   });
+  //   socket.on("lead", async (data) => {
+  //     setLead(data);
+  //     if (data.followerID) {
+  //       setFollow(true);
+  //     } else {
+  //       setFollow(false);
+  //     }
+  //   });
+  // };
 
   const handleFollow = async () => {
     if (follow) {
@@ -125,7 +127,10 @@ const FollowUpModal = ({ id, setFollowUp }) => {
         });
     } else {
       await axios
-        .patch(`${siteInfo.api}/leads/setFollower/${id}`, currentUser)
+        .patch(`${siteInfo.api}/leads/setFollower/${id}`, {
+          id: currentUser.id,
+          name: currentUser.name,
+        })
         .then((res) => {
           setLead(res.data);
           setFollow(true);
@@ -382,7 +387,7 @@ const FollowUpModal = ({ id, setFollowUp }) => {
                   type="submit"
                   className="  bg-sky-600 border-none text-neutral-100 px-4 py-2 rounded-md hover:bg-sky-800 cursor-pointer"
                 />
-                <Button onClick={handleFollowTwo}>
+                <Button onClick={handleFollow}>
                   {follow ? <CheckBoxIcon /> : <AddBoxOutlinedIcon />}
                 </Button>
                 <Button color="error" onClick={handleFav}>
