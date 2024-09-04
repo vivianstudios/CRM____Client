@@ -12,11 +12,6 @@ function App() {
   const [lastActivity, setLastActivity] = useState(Date.now());
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.users);
-<<<<<<< HEAD
-
-  const LOGOUT_TIME = 60 * 60 * 1000;
-=======
->>>>>>> main
 
   const LOGOUT_TIME = 2 * 60 * 1000;
   const handleLogOut = () => {
