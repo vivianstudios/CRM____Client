@@ -17,7 +17,6 @@ import HTMLEditor from "react-jodit-editor";
 import ReactDOM from "react-dom";
 
 const FollowUpModal = ({ id, setFollowUp }) => {
-  // const socket = socketIO.connect(siteInfo.socket);
   const { showLeads, leadsError, pending } = useSelector(
     (state) => state.leads
   );
@@ -117,17 +116,18 @@ const FollowUpModal = ({ id, setFollowUp }) => {
   const handleFollow = async () => {
     if (follow) {
       await axios
-        .patch(`${siteInfo.api}/leads/setFollower/${id}`, { id: null })
+        .post(`${siteInfo.api}/leads/setFollower/${id}`, { id: null })
         .then((res) => {
           setLead(res.data);
           setFollow(false);
         })
         .catch((error) => {
-          toast.error("Something Wrong, Try Again");
+          toast.error("Something Wrong, Try Again", error);
         });
     } else {
       await axios
         .patch(`${siteInfo.api}/leads/setFollower/${id}`, {
+          // .post(`${siteInfo.api}/leads/setFollower/${id}`, {
           id: currentUser.id,
           name: currentUser.name,
         })
@@ -140,6 +140,36 @@ const FollowUpModal = ({ id, setFollowUp }) => {
         });
     }
   };
+
+  // const handleFollow = async () => {
+  //   if (follow) {
+  //     await axios
+  //       .post(`${siteInfo.api}/leads/setFollower/${id}`, { id: null })
+  //       .then((res) => {
+  //         setLead(res.data);
+  //         setFollow(false);
+  //       })
+  //       .catch((error) => {
+  //         toast.error("Something Wrong, Try Again");
+  //       });
+  //   } else {
+  //     console.log(currentUser);
+  //     const response = await fetch(`${siteInfo.api}/leads/setFollower/${id}`, {
+  //       method: "POST", // *GET, POST, PUT, DELETE, etc.
+  //       mode: "cors", // no-cors, *cors, same-origin
+  //       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // 'Content-Type': 'application/x-www-form-urlencoded',
+  //       },
+  //       redirect: "follow", // manual, *follow, error
+  //       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+  //       body: JSON.stringify(currentUser), // body data type must match "Content-Type" header
+  //     });
+  //     setLead(response);
+  //     setFollow(false);
+  //   }
+  // };
 
   const addRecord = async (data) => {
     await axios
