@@ -52,7 +52,8 @@ const DailyPerform = () => {
                       d.status == "Follow-up" ||
                       d.status == "Contacted" ||
                       d.status == "Not available" ||
-                      d.status == "Voice mail"
+                      d.status == "Voice mail" ||
+                      d.status == "Email"
                   ).length
                 }
               </td>

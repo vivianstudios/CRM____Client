@@ -1,4 +1,3 @@
-
 const categories = [
   "VFX / 3D / 2D/ CGI",
   "Motion graphics / Video editing",
@@ -7,7 +6,7 @@ const categories = [
   "IT",
   "Agency",
   "Others",
+  "Image",
 ];
-
 
 export default categories;
