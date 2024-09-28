@@ -6,6 +6,9 @@ import router from "./Routers/Routers";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setCurrentUser } from "./store/reducers/usersReducers";
+import ActivityDetector from "react-activity-detector";
+
+const customActivityEvents = ["click", "keydown"];
 
 function App() {
   const state = useSelector((state) => state.app);
@@ -20,24 +23,29 @@ function App() {
     window.location.pathname = "/login";
   };
 
-  const checkLogout = () => {
-    const currentTime = Date.now();
-    const elapsedTime = currentTime - lastActivity;
-    // console.log(elapsedTime);
-    if (elapsedTime >= LOGOUT_TIME) {
-      // handleLogOut();
-    }
+  const onIdle = () => {
+    console.log("The user seems to be idle...");
+    handleLogOut();
   };
 
-  const resetTimer = () => {
-    setLastActivity(Date.now());
-  };
+  // const checkLogout = () => {
+  //   const currentTime = Date.now();
+  //   const elapsedTime = currentTime - lastActivity;
+  //   // console.log(elapsedTime);
+  //   if (elapsedTime >= LOGOUT_TIME) {
+  //     // handleLogOut();
+  //   }
+  // };
 
-  window.addEventListener("mousemove", resetTimer);
+  // const resetTimer = () => {
+  //   setLastActivity(Date.now());
+  // };
 
-  useEffect(() => {
-    resetTimer();
-  }, []);
+  // window.addEventListener("mousemove", resetTimer);
+
+  // useEffect(() => {
+  //   resetTimer();
+  // }, []);
 
   // setInterval(checkLogout, 60000);
 
@@ -45,6 +53,14 @@ function App() {
     <div className={`w-full app ${state.theme == "DARK" ? "dark" : "light"} `}>
       <RouterProvider router={router}> </RouterProvider>
       <ToastContainer />
+      <ActivityDetector
+        activityEvents={customActivityEvents}
+        enabled={true}
+        timeout={15 * 1000 * 60}
+        onIdle={onIdle}
+        // onActive={onActive}
+        name="default"
+      />
     </div>
   );
 }

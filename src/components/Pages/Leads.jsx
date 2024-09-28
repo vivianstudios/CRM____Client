@@ -145,24 +145,24 @@ const Leads = () => {
         sortable: false,
         headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
       },
-      {
-        field: "website",
-        headerName: "Website",
-        width: 200,
-        sortable: false,
-        headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
-        renderCell: ({ row }) => (
-          <div className="p-3">
-            <a
-              target="_blank"
-              href={"https://" + setUrl(row.website)}
-              className="cursor-pointer text-blue-500"
-            >
-              <b>{setUrl(row.website)}</b>
-            </a>
-          </div>
-        ),
-      },
+      // {
+      //   field: "website",
+      //   headerName: "Website",
+      //   width: 200,
+      //   sortable: false,
+      //   headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
+      //   renderCell: ({ row }) => (
+      //     <div className="p-3">
+      //       <a
+      //         target="_blank"
+      //         href={"https://" + setUrl(row.website)}
+      //         className="cursor-pointer text-blue-500"
+      //       >
+      //         <b>{setUrl(row.website)}</b>
+      //       </a>
+      //     </div>
+      //   ),
+      // },
       {
         field: "category",
         headerName: "Category",
@@ -266,20 +266,20 @@ const Leads = () => {
           </div>
         ),
       },
-      {
-        field: "phone",
-        headerName: "Phone",
-        width: 130,
-        sortable: false,
-        headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
-      },
-      {
-        field: "email",
-        headerName: "Email",
-        width: 220,
-        sortable: false,
-        headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
-      },
+      // {
+      //   field: "phone",
+      //   headerName: "Phone",
+      //   width: 130,
+      //   sortable: false,
+      //   headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
+      // },
+      // {
+      //   field: "email",
+      //   headerName: "Email",
+      //   width: 220,
+      //   sortable: false,
+      //   headerClassName: state.theme == "DARK" ? "dark" : "dataTableHeader",
+      // },
       {
         field: "action",
         headerName: "Action",

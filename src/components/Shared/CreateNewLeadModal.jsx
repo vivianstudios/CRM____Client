@@ -13,12 +13,9 @@ const CreateNewLeadModal = () => {
   const [disable, setDisable] = useState(false);
   const [msg, setMsg] = useState(null);
   const state = useSelector((state) => state.app);
-  const {theme} = useSelector((state) => state.app);
+  const { theme } = useSelector((state) => state.app);
 
-  const { currentUser } = useSelector(
-    (state) => state.users
-  );
-
+  const { currentUser } = useSelector((state) => state.users);
 
   const alert = {
     position: "top-center",
@@ -56,7 +53,7 @@ const CreateNewLeadModal = () => {
       country: event.target.country.value,
       website: event.target.website.value,
       company: event.target.company.value,
-      minor: currentUser.role == "ADMIN" ? "Admin": currentUser.name,
+      minor: currentUser.role == "ADMIN" ? "Admin" : currentUser.name,
     };
 
     await axios
@@ -73,39 +70,39 @@ const CreateNewLeadModal = () => {
     setPending(false);
   };
 
-  const handleValueCheck = async (e,item) => {
+  const handleValueCheck = async (e, item) => {
     const params = { value: e.target.value, path: item };
-    
+
     try {
       const res = await axios.get(`${siteInfo.api}/leads/checkValue`, {
         params,
       });
-      if(res.data != null){
-        setMsg(`this ${item} is already exist`)
+      console.log(res);
+      if (res.data != null) {
+        setMsg(`this ${item} already exists`);
         setDisable(true);
-      }else{
-        setMsg(null)
-        setDisable(false)
+      } else {
+        setMsg(null);
+        setDisable(false);
       }
     } catch (error) {
-      toast.error(`Getting error while check the ${item} value is exist or not! pls try again letter`);
+      toast.error(
+        `Getting error while check the ${item} value is exist or not! pls try again later`
+      );
     }
-  }
+  };
 
-  
-
-  const inputStyle = ()  => {
-    if(theme == "DARK"){
+  const inputStyle = () => {
+    if (theme == "DARK") {
       return {
         background: "#0a1929",
         border: "1px solid #93c5fd",
         color: "#f5f5f5",
-       }
-    }else{
-      return {
-      }
+      };
+    } else {
+      return {};
     }
-  }
+  };
 
   return (
     <div className={`  px-2 py-4`}>
@@ -115,29 +112,30 @@ const CreateNewLeadModal = () => {
         className="modal-toggle"
       />
       <div className={`  modal px-2 py-4`}>
-        <div className={` modal-box  ${state.theme == "DARK" ? 'dark': 'light'} max-w-3xl h-[75vh] overflow-y-scroll`}>
+        <div
+          className={` modal-box  ${
+            state.theme == "DARK" ? "dark" : "light"
+          } max-w-3xl h-[75vh] overflow-y-scroll`}
+        >
           <form
             onReset={reset}
             onSubmit={handleCreateNewLead}
             className=" w-10/12 mx-auto"
           >
-            <h1 className="text-3xl font-semibold   mb-2">
-              Create New Lead{" "}
-            </h1>
+            <h1 className="text-3xl font-semibold   mb-2">Create New Lead </h1>
 
-            {msg && <h1 className="text-2xl text-center font-semibold text-red-600 my-2">
-              {msg}
-            </h1>}
+            {msg && (
+              <h1 className="text-2xl text-center font-semibold text-red-600 my-2">
+                {msg}
+              </h1>
+            )}
 
             <section className="  ">
               <div className=" flex  justify-between">
                 {/* Left side of form  */}
                 <div>
                   <div className="mb-3">
-                    <label
-                      htmlFor="name"
-                      className="text-lg font-medium  "
-                    >
+                    <label htmlFor="name" className="text-lg font-medium  ">
                       Company
                     </label>
                     <input
@@ -149,41 +147,38 @@ const CreateNewLeadModal = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="text-lg font-medium  ">
-                      Website
-                    </label>
+                    <label className="text-lg font-medium  ">Website</label>
                     <input
                       type="url"
                       name="website"
                       style={inputStyle()}
-                      onChange={(e)=> handleValueCheck(e,'website')}
+                      onChange={(e) => handleValueCheck(e, "website")}
                       required
                       className="mt-1 block w-72 h-10 border border-gray-300 rounded-md mr-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="mb-3 flex flex-col">
-                    <label className="text-lg font-medium  ">
-                      Country
-                    </label>
+                    <label className="text-lg font-medium  ">Country</label>
                     <select
                       name="country"
                       style={inputStyle()}
                       required
                       className=" select-bordered  border border-gray-300  w-72 ml-0 mr-2 h-10 rounded-md"
                     >
-                      <option>
-                      </option>
-                      {countries.map(country=>{
-                        return <option className="capitalize" key={country}> {country} </option>
+                      <option></option>
+                      {countries.map((country) => {
+                        return (
+                          <option className="capitalize" key={country}>
+                            {" "}
+                            {country}{" "}
+                          </option>
+                        );
                       })}
                     </select>
                   </div>
                   <div className="mb-3 flex flex-col">
-                    <label
-                      htmlFor="email"
-                      className="text-lg font-medium  "
-                    >
+                    <label htmlFor="email" className="text-lg font-medium  ">
                       Category
                     </label>
                     <select
@@ -192,10 +187,14 @@ const CreateNewLeadModal = () => {
                       required
                       className=" select-bordered  border border-gray-300  w-72 ml-0 mr-2 h-10 rounded-md"
                     >
-                      <option>
-                      </option>
-                      {categories.map(category=>{
-                        return <option className="capitalize" key={category}> {category} </option>
+                      <option></option>
+                      {categories.map((category) => {
+                        return (
+                          <option className="capitalize" key={category}>
+                            {" "}
+                            {category}{" "}
+                          </option>
+                        );
                       })}
                     </select>
                   </div>
@@ -217,9 +216,7 @@ const CreateNewLeadModal = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label className="text-lg font-medium  ">
-                      Designation
-                    </label>
+                    <label className="text-lg font-medium  ">Designation</label>
                     <input
                       type="text"
                       style={inputStyle()}
@@ -229,28 +226,23 @@ const CreateNewLeadModal = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label className="text-lg font-medium  ">
-                      Phone
-                    </label>
+                    <label className="text-lg font-medium  ">Phone</label>
                     <input
-                    style={inputStyle()}
+                      style={inputStyle()}
                       type="number"
-                      onChange={(e)=> handleValueCheck(e,'phone')}
+                      onChange={(e) => handleValueCheck(e, "phone")}
                       name="phone"
                       className=" block w-72 h-10 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
                   <div className="mb-3">
-                    <label
-                      htmlFor="email"
-                      className="text-lg font-medium  "
-                    >
+                    <label htmlFor="email" className="text-lg font-medium  ">
                       Email
                     </label>
                     <input
                       type="email"
                       style={inputStyle()}
-                      onChange={(e)=> handleValueCheck(e,'email')}
+                      onChange={(e) => handleValueCheck(e, "email")}
                       name="email"
                       className=" block w-72 h-10 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
@@ -261,10 +253,7 @@ const CreateNewLeadModal = () => {
 
               {/* Text area for  description   */}
               <div className="w-full mx-auto">
-                <label className="text-lg font-medium  ">
-                  {" "}
-                  Description{" "}
-                </label>
+                <label className="text-lg font-medium  "> Description </label>
                 <textarea
                   placeholder=" "
                   style={inputStyle()}
